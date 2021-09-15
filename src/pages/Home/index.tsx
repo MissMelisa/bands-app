@@ -1,8 +1,9 @@
 import { CircularProgress, Container, Typography } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { useQuery } from "react-query";
-import { allBands } from "../../api/bands";
-import BandDetail from "../../components/BandDetail/BandDetail";
+import { useHistory } from "react-router";
+import { getAllBands } from "../../api/bandAPI";
+import BandDetail from "../../components/BandDetail";
+import ErrorMessage from "../../components/ErrorMessage";
 import { Band } from "../../types";
 
 export default function Home() {
@@ -11,19 +12,20 @@ export default function Home() {
     error,
     data = [],
   } = useQuery<Band[], Error>("repoBand", () => {
-    return allBands("bands");
+    return getAllBands();
   });
+  const history = useHistory();
+
+  function redirect(id: number) {
+    history.push(`/bands/${id}`);
+  }
 
   return (
     <Container>
-      <Typography>Bands Challenge</Typography>
+      <Typography variant="h2">Bands Challenge</Typography>
+      <img src="images/logo.jpeg" alt="Ahrens and Asoc" />
       {isLoading && <CircularProgress />}
-      {error && (
-        <Alert>
-          <AlertTitle>Error</AlertTitle>
-          This is an error alert — <strong>check it out!</strong>
-        </Alert>
-      )}
+      {error && <ErrorMessage />}
       {data.map((item) => (
         <BandDetail
           key={item.id}
@@ -33,6 +35,7 @@ export default function Home() {
           genreCode={item.genreCode}
           country={item.country}
           members={item.members}
+          onSeeMore={() => redirect(item.id)}
         />
       ))}
     </Container>

@@ -9,3 +9,9 @@ export type Band = {
 type Members = {
   name: string;
 };
+
+export type Album = {
+  name: string;
+  year: number;
+  bandId: number;
+};
