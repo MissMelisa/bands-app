@@ -15,3 +15,8 @@ export type Album = {
   year: number;
   bandId: number;
 };
+
+export type User = {
+  email: string | null;
+  uid: string;
+};
