@@ -1,33 +1,42 @@
 import { Button, Card, CardContent, Typography } from "@material-ui/core";
 import { Band } from "../../types";
 
+import { makeStyles } from "@material-ui/core/styles";
+
 type Props = {
   onSeeMore: () => void;
 } & Band;
+
+const useStyles = makeStyles({
+  bandDetailContainer: {
+    maxHeight: "200px",
+    height: "100%",
+    maxWidth: "400px",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default function BandDetail({
   name,
   genreCode,
   year,
   country,
-  members,
   onSeeMore,
 }: Props) {
+  const classes = useStyles();
   return (
-    <Card>
+    <Card className={classes.bandDetailContainer}>
       <CardContent>
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h5" color="textSecondary">
           {genreCode}
         </Typography>
+
         <Typography variant="h5" color="textSecondary">
-          {year}
-        </Typography>
-        <Typography variant="h5" color="textSecondary">
-          {country}
-        </Typography>
-        <Typography variant="h4" color="textSecondary">
-          {members}
+          {year} - {country}
         </Typography>
 
         <Button color="primary" onClick={onSeeMore}>

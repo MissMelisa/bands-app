@@ -4,10 +4,7 @@ export type Band = {
   genreCode: string;
   year: number;
   country: string;
-  members: Members;
-};
-type Members = {
-  name: string;
+  members: string[];
 };
 
 export type Album = {

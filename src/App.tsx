@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Home from "./pages/Home";
@@ -6,8 +7,8 @@ import LogInPage from "./pages/LogIn";
 import AuthUserProvider from "./pages/AuthUserContext/AuthUserContext";
 import RegisterPage from "./pages/Register";
 import "./App.css";
-import BandsProvider from "./components/BandsContext";
-const queryClient = new QueryClient();
+
+export const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -22,17 +23,17 @@ function App() {
               <Route path="/login" exact>
                 <LogInPage />
               </Route>
-              <BandsProvider>
-                <Route path="/" exact>
-                  <Home />
-                </Route>
-                <Route path="/bands/:id" exact>
-                  <AlbumsDetailPage />
-                </Route>
-              </BandsProvider>
+
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/bands/:id" exact>
+                <AlbumsDetailPage />
+              </Route>
             </Switch>
           </AuthUserProvider>
         </Router>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </div>
   );
