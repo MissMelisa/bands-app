@@ -24,10 +24,7 @@ const useStyles = makeStyles({
     height: "150px",
     alignSelf: "flex-end",
   },
-  homeContainer: {
-    display: "grid",
-    justifyContent: "center",
-  },
+
   bandsList: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill,minmax(400px, 1fr))",
@@ -105,7 +102,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Container maxWidth="lg" className={classes.homeContainer}>
+    <Container maxWidth="md">
       <Box className={classes.header}>
         <img
           src="images/logo.jpeg"
