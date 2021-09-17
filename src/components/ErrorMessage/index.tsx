@@ -1,9 +1,14 @@
 import { Alert, AlertTitle } from "@material-ui/lab";
-export default function ErrorMessage() {
+
+type Props = {
+  errorMessage: string;
+};
+
+export default function ErrorMessage({ errorMessage }: Props) {
   return (
-    <Alert severity="error">
+    <Alert severity="error" onClose={() => {}}>
       <AlertTitle>Error</AlertTitle>
-      This is an error alert — <strong>check it out!</strong>
+      This is an error alert — <strong>{errorMessage}</strong>
     </Alert>
   );
 }

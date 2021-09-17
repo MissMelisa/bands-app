@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../authUserContext/authUserContext";
+import { useAuth } from "../AuthUserContext/AuthUserContext";
 import { users } from "../../firebase";
 import { useHistory } from "react-router";
 import {
@@ -11,6 +11,37 @@ import {
 } from "@material-ui/core";
 import ErrorMessage from "../../components/ErrorMessage";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  logInContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageLogo: {
+    width: "200px",
+    height: "200px",
+    alignSelf: "center",
+  },
+  formContainer: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    maxHeight: "600px",
+    maxWidth: "400px",
+  },
+  button: {
+    margin: "25px",
+  },
+  formControl: {
+    margin: "10px",
+  },
+});
+
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>("");
   const [passwordOne, setPasswordOne] = useState<string>("");
@@ -18,6 +49,7 @@ export default function RegisterPage() {
   const [error, setError] = useState<string>("");
   const history = useHistory();
 
+  const classes = useStyles();
   const { createUserWithEmailAndPassword } = useAuth();
 
   const onSubmit = (event: React.SyntheticEvent) => {
@@ -43,10 +75,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <Container>
-      <img src="images/logo.jpeg" alt="Ahrens and Asoc" />
-      <form onSubmit={onSubmit}>
-        <FormControl>
+    <Container maxWidth="md" className={classes.logInContainer}>
+      <img
+        src="images/logo.jpeg"
+        alt="Ahrens and Asoc"
+        className={classes.imageLogo}
+      />
+      <form onSubmit={onSubmit} className={classes.formContainer}>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="email">Email</InputLabel>
           <Input
             id="email"
@@ -55,7 +91,7 @@ export default function RegisterPage() {
             placeholder="Email"
           />
         </FormControl>
-        <FormControl>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
             id="password"
@@ -65,7 +101,7 @@ export default function RegisterPage() {
             placeholder="Password"
           />
         </FormControl>
-        <FormControl>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
             id="password"
@@ -75,9 +111,16 @@ export default function RegisterPage() {
             placeholder="Password"
           />
         </FormControl>
-        <Button type="submit">Register</Button>
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          className={classes.button}
+        >
+          Register
+        </Button>
       </form>
-      {error}
+      {error && <ErrorMessage errorMessage={error} />}
     </Container>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../authUserContext/authUserContext";
+import { useAuth } from "../AuthUserContext/AuthUserContext";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../components/ErrorMessage";
 import {
@@ -14,7 +14,32 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  logInContainer: {},
+  logInContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageLogo: {
+    width: "200px",
+    height: "200px",
+    alignSelf: "center",
+  },
+  formContainer: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    maxHeight: "600px",
+    maxWidth: "400px",
+  },
+  button: {
+    margin: "25px",
+  },
+  formControl: {
+    margin: "10px",
+  },
 });
 
 export default function LogInPage() {
@@ -46,9 +71,13 @@ export default function LogInPage() {
 
   return (
     <Container maxWidth="md" className={classes.logInContainer}>
-      <img src="images/logo.jpeg" alt="Ahrens and Asoc" />
-      <form onSubmit={onSubmit}>
-        <FormControl>
+      <img
+        src="images/logo.jpeg"
+        alt="Ahrens and Asoc"
+        className={classes.imageLogo}
+      />
+      <form onSubmit={onSubmit} className={classes.formContainer}>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="email">Email</InputLabel>
           <Input
             id="email"
@@ -57,7 +86,7 @@ export default function LogInPage() {
             onChange={(event) => setEmail(event.target.value)}
           />
         </FormControl>
-        <FormControl>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input
             id="password"
@@ -67,11 +96,20 @@ export default function LogInPage() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </FormControl>
-        <Button type="submit">Log In</Button>
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          className={classes.button}
+        >
+          Log In
+        </Button>
       </form>
-      {error}
+      {error && <ErrorMessage errorMessage={error} />}
       <Typography>No account?</Typography>
-      <Button onClick={redirect}> Create One</Button>
+      <Button onClick={redirect} variant="outlined" color="primary">
+        Create One
+      </Button>
     </Container>
   );
 }
