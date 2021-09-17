@@ -4,16 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   albumsDetailsContainer: {
-    maxHeight: "300px",
+    maxHeight: 300,
     height: "100%",
-    minWidth: "350px",
+    minWidth: 350,
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
   albumName: {
-    margin: "15px",
+    margin: 15,
   },
 });
 export default function AlbumsDetails({ name, year }: Album) {

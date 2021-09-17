@@ -1,5 +1,5 @@
 import { Button, Container } from "@material-ui/core";
-import { useAuth } from "../../pages/AuthUserContext/AuthUserContext";
+import { useAuth } from "../AuthUserContext/AuthUserContext";
 
 import { makeStyles } from "@material-ui/core/styles";
 

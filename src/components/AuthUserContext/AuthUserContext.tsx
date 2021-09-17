@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import firebase from "../../firebase";
 import { User } from "../../types";
-import useFirebaseAuth from "../Hooks/useFirebaseAuth/useFirebaseAuth";
+import useFirebaseAuth from "../../pages/Hooks/useFirebaseAuth/useFirebaseAuth";
 
 type AuthUserContextType = {
   authUser: User | null;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../AuthUserContext/AuthUserContext";
+import { useAuth } from "../../components/AuthUserContext/AuthUserContext";
 import { useHistory } from "react-router";
 import ErrorMessage from "../../components/ErrorMessage";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "../../components/TextField";
 
 const useStyles = makeStyles({
   logInContainer: {
@@ -51,7 +52,7 @@ export default function LogInPage() {
 
   const classes = useStyles();
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setError("");
@@ -63,7 +64,7 @@ export default function LogInPage() {
       .catch((error) => {
         setError(error.message);
       });
-  };
+  }
 
   function redirect() {
     history.push("/register");
@@ -71,31 +72,23 @@ export default function LogInPage() {
 
   return (
     <Container maxWidth="md" className={classes.logInContainer}>
-      <img
-        src="images/logo.jpeg"
-        alt="Ahrens and Asoc"
-        className={classes.imageLogo}
-      />
+      <img src="images/logo.jpeg" alt="Logo" className={classes.imageLogo} />
       <form onSubmit={onSubmit} className={classes.formContainer}>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </FormControl>
+        <TextField
+          id="email"
+          type="email"
+          value={email}
+          placeholder="Email"
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <TextField
+          id="password"
+          type="password"
+          value={password}
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+
         <Button
           color="primary"
           variant="contained"

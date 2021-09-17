@@ -6,9 +6,9 @@ type Props = {
 
 export default function ErrorMessage({ errorMessage }: Props) {
   return (
-    <Alert severity="error" onClose={() => {}}>
+    <Alert severity="error">
       <AlertTitle>Error</AlertTitle>
-      This is an error alert — <strong>{errorMessage}</strong>
+      <strong>{errorMessage}</strong>
     </Alert>
   );
 }

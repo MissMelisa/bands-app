@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../AuthUserContext/AuthUserContext";
+import { useAuth } from "../../components/AuthUserContext/AuthUserContext";
 import { users } from "../../firebase";
 import { useHistory } from "react-router";
 import {
@@ -12,6 +12,7 @@ import {
 import ErrorMessage from "../../components/ErrorMessage";
 
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "../../components/TextField";
 
 const useStyles = makeStyles({
   logInContainer: {
@@ -37,9 +38,6 @@ const useStyles = makeStyles({
   button: {
     margin: "25px",
   },
-  formControl: {
-    margin: "10px",
-  },
 });
 
 export default function RegisterPage() {
@@ -52,10 +50,11 @@ export default function RegisterPage() {
   const classes = useStyles();
   const { createUserWithEmailAndPassword } = useAuth();
 
-  const onSubmit = (event: React.SyntheticEvent) => {
+  function onSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
     setError("");
 
-    if (passwordOne === passwordTwo)
+    if (passwordOne === passwordTwo) {
       createUserWithEmailAndPassword(email, passwordOne)
         .then(({ user }) => {
           if (user !== null) {
@@ -70,9 +69,10 @@ export default function RegisterPage() {
         .catch((error) => {
           setError(error.message);
         });
-    else setError("Password do not match");
-    event.preventDefault();
-  };
+    } else {
+      setError("Password do not match");
+    }
+  }
 
   return (
     <Container maxWidth="md" className={classes.logInContainer}>
@@ -82,35 +82,34 @@ export default function RegisterPage() {
         className={classes.imageLogo}
       />
       <form onSubmit={onSubmit} className={classes.formContainer}>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-            id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Email"
-          />
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type="password"
-            value={passwordOne}
-            onChange={(event) => setPasswordOne(event.target.value)}
-            placeholder="Password"
-          />
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type="password"
-            value={passwordTwo}
-            onChange={(event) => setPasswordTwo(event.target.value)}
-            placeholder="Password"
-          />
-        </FormControl>
+        <TextField
+          id="email"
+          type="email"
+          value={email}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(event.target.value)
+          }
+          placeholder="Email"
+        />
+
+        <TextField
+          id="password"
+          type="password"
+          value={passwordOne}
+          onChange={(event) => setPasswordOne(event.target.value)}
+          placeholder="Password"
+        />
+
+        <TextField
+          id="password"
+          type="password"
+          value={passwordTwo}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setPasswordTwo(event.target.value)
+          }
+          placeholder="Password"
+        />
+
         <Button
           color="primary"
           variant="contained"
