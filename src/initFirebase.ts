@@ -1,7 +1,5 @@
-import firebase from "firebase";
+import firebaseSDK from "firebase";
 import "firebase/auth";
-
-// import firebase from 'firebase/app';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,11 +10,11 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+if (!firebaseSDK.apps.length) {
+  firebaseSDK.initializeApp(firebaseConfig);
 } else {
-  firebase.app();
+  firebaseSDK.app();
 }
-export default firebase;
+export default firebaseSDK;
 
-export const users = firebase.database().ref().child("users");
+export const users = firebaseSDK.database().ref().child("users");

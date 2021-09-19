@@ -2,8 +2,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import { Home, LogIn, AlbumsDetail, Register } from "./pages";
-import AuthUserProvider from "./components/AuthUserContext/AuthUserContext";
+import { Home, LogIn, BandDetails, Register } from "./pages";
+import { AuthUserProvider } from "./components";
 import "./App.css";
 
 export const queryClient = new QueryClient();
@@ -25,7 +25,7 @@ function App() {
                 <LogIn />
               </Route>
               <Route path="/bands/:id" exact>
-                <AlbumsDetail />
+                <BandDetails />
               </Route>
             </Switch>
           </AuthUserProvider>

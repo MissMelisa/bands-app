@@ -1,22 +1,17 @@
+import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
   CircularProgress,
   Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Typography,
 } from "@material-ui/core";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
-import { getAllBands } from "../../api/bandAPI";
-import BandDetail from "../../components/BandDetail";
-import ErrorMessage from "../../components/ErrorMessage";
-import SingOut from "../../components/SingOut";
-import { Band } from "../../types";
-import { makeStyles } from "@material-ui/core/styles";
-import { useState } from "react";
+
+import { getAllBands } from "api/bandAPI";
+import { BandCard, ErrorMessage, SignOut, DropDown } from "components";
+import { Band } from "types";
 
 const useStyles = makeStyles({
   imageLogo: {
@@ -41,12 +36,6 @@ const useStyles = makeStyles({
   titleHome: {
     fontWeight: "bold",
     marginBottom: "20px",
-  },
-  sortByContainer: {
-    margin: "20px",
-  },
-  controlSelect: {
-    minWidth: "150px",
   },
 });
 
@@ -86,14 +75,6 @@ export default function Home() {
     history.push(`/bands/${id}`);
   }
 
-  const handleChangeSortBy = (event: any) => {
-    setSortByKey(event.target.value);
-  };
-
-  function handleOnFilterBy(ev: any) {
-    setFilterByKey(ev.target.value);
-  }
-
   const availableGenres = data.reduce<string[]>(function (genres, curr) {
     if (!genres.includes(curr.genreCode)) {
       genres.push(curr.genreCode);
@@ -104,12 +85,8 @@ export default function Home() {
   return (
     <Container maxWidth="md">
       <Box className={classes.header}>
-        <img
-          src="images/logo.jpeg"
-          alt="Ahrens and Asoc"
-          className={classes.imageLogo}
-        />
-        <SingOut />
+        <img src="images/logo.jpeg" alt="logo" className={classes.imageLogo} />
+        <SignOut />
       </Box>
       <Typography variant="h2" className={classes.titleHome}>
         Bands Challenge
@@ -117,44 +94,20 @@ export default function Home() {
       {isLoading && <CircularProgress />}
       {error && <ErrorMessage errorMessage={error.message} />}
 
-      <Box className={classes.sortByContainer}>
-        <FormControl className={classes.controlSelect}>
-          <InputLabel id="sortBy">Sort By</InputLabel>
-          <Select
-            labelId="sortBy"
-            id="sortBy"
-            value={sortByKey}
-            onChange={handleChangeSortBy}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value="name">Name</MenuItem>
-            <MenuItem value="year">Year</MenuItem>
-            <MenuItem value="genreCode">Genre</MenuItem>
-            <MenuItem value="country">Country</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box className={classes.sortByContainer}>
-        <FormControl className={classes.controlSelect}>
-          <InputLabel id="filterBy">Filter By</InputLabel>
-          <Select
-            labelId="filterBy"
-            id="filterBy"
-            value={filterByKey}
-            onChange={handleOnFilterBy}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-
-            {availableGenres.map((item) => (
-              <MenuItem value={item}>{item}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+      <DropDown
+        id="sortBy"
+        label="Sort by"
+        options={["name", "year", "genreCode", "country"]}
+        value={sortByKey}
+        onChange={setSortByKey}
+      />
+      <DropDown
+        options={availableGenres}
+        label="Filter by"
+        id="filterBy"
+        value={filterByKey}
+        onChange={setFilterByKey}
+      />
 
       <Container className={classes.bandsList}>
         {data
@@ -163,7 +116,7 @@ export default function Home() {
           })
           .filter((item) => !filterByKey || filterByKey === item.genreCode)
           .map((item) => (
-            <BandDetail
+            <BandCard
               key={item.id}
               id={item.id}
               name={item.name}

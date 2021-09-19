@@ -1,7 +1,6 @@
 import { Button, Card, CardContent, Typography } from "@material-ui/core";
-import { Band } from "../../types";
-
 import { makeStyles } from "@material-ui/core/styles";
+import { Band } from "types";
 
 type Props = {
   onSeeMore: () => void;
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BandDetail({
+export default function BandCard({
   name,
   genreCode,
   year,

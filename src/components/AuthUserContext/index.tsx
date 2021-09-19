@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
-import firebase from "../../firebase";
-import { User } from "../../types";
-import useFirebaseAuth from "../../pages/Hooks/useFirebaseAuth/useFirebaseAuth";
+
+import firebase from "initFirebase";
+import { User } from "types";
+import useFirebaseAuth from "hooks/useFirebaseAuth";
 
 type AuthUserContextType = {
   authUser: User | null;
@@ -37,11 +38,7 @@ const AuthUserContext = createContext<AuthUserContextType>({
 
 const PUBLIC_ROUTES = ["/register", "/login"];
 
-export default function AuthUserProvider({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export function AuthUserProvider({ children }: { children?: React.ReactNode }) {
   const auth = useFirebaseAuth();
   const history = useHistory();
 
@@ -59,4 +56,6 @@ export default function AuthUserProvider({
   );
 }
 
-export const useAuth = () => useContext(AuthUserContext);
+export function useAuth() {
+  return useContext(AuthUserContext);
+}

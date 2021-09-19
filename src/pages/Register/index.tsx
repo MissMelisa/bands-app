@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import { useAuth } from "../../components/AuthUserContext/AuthUserContext";
-import { users } from "../../firebase";
 import { useHistory } from "react-router";
-import {
-  Button,
-  Container,
-  FormControl,
-  Input,
-  InputLabel,
-} from "@material-ui/core";
-import ErrorMessage from "../../components/ErrorMessage";
-
+import { Button, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "../../components/TextField";
+
+import { users } from "initFirebase";
+
+import { ErrorMessage, TextField, useAuth } from "components";
 
 const useStyles = makeStyles({
   logInContainer: {
@@ -76,15 +69,12 @@ export default function RegisterPage() {
 
   return (
     <Container maxWidth="md" className={classes.logInContainer}>
-      <img
-        src="images/logo.jpeg"
-        alt="Ahrens and Asoc"
-        className={classes.imageLogo}
-      />
+      <img src="images/logo.jpeg" alt="Logo" className={classes.imageLogo} />
       <form onSubmit={onSubmit} className={classes.formContainer}>
         <TextField
           id="email"
           type="email"
+          label="Email"
           value={email}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(event.target.value)
@@ -94,6 +84,7 @@ export default function RegisterPage() {
 
         <TextField
           id="password"
+          label="Password"
           type="password"
           value={passwordOne}
           onChange={(event) => setPasswordOne(event.target.value)}
@@ -102,12 +93,13 @@ export default function RegisterPage() {
 
         <TextField
           id="password"
+          label="Confirm password"
           type="password"
           value={passwordTwo}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setPasswordTwo(event.target.value)
           }
-          placeholder="Password"
+          placeholder="Confirm password"
         />
 
         <Button

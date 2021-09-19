@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 type Props = {
   id: string;
   type: string;
+  label: string;
   value: string;
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,11 +22,12 @@ export default function TextField({
   value,
   onChange,
   placeholder,
+  label,
 }: Props) {
   const classes = useStyles();
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="password">Password</InputLabel>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         id={id}
         type={type}

@@ -1,18 +1,11 @@
 import { useState } from "react";
-import { useAuth } from "../../components/AuthUserContext/AuthUserContext";
+import { Button, Container, Typography } from "@material-ui/core";
 import { useHistory } from "react-router";
-import ErrorMessage from "../../components/ErrorMessage";
-import {
-  Button,
-  Container,
-  FormControl,
-  Input,
-  InputLabel,
-  Typography,
-} from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "../../components/TextField";
+
+import { useAuth } from "components/AuthUserContext";
+
+import { ErrorMessage, TextField } from "components";
 
 const useStyles = makeStyles({
   logInContainer: {
@@ -77,6 +70,7 @@ export default function LogInPage() {
         <TextField
           id="email"
           type="email"
+          label="Email"
           value={email}
           placeholder="Email"
           onChange={(event) => setEmail(event.target.value)}
@@ -84,6 +78,7 @@ export default function LogInPage() {
         <TextField
           id="password"
           type="password"
+          label="Password"
           value={password}
           placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
