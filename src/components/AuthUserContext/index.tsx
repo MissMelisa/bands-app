@@ -42,8 +42,6 @@ export function AuthUserProvider({ children }: { children?: React.ReactNode }) {
   const auth = useFirebaseAuth();
   const history = useHistory();
 
-  console.log("aaa", history.location);
-
   useEffect(() => {
     if (
       !auth.loading &&
