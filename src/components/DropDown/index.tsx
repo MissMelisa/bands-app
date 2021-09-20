@@ -40,6 +40,9 @@ export default function DropDown({
           labelId={id}
           id={id}
           value={value}
+          inputProps={{
+            "aria-label": label,
+          }}
           onChange={(ev) => onChange(ev.target.value as string)}
         >
           <MenuItem value="">

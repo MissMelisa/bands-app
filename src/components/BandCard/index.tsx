@@ -27,7 +27,7 @@ export default function BandCard({
 }: Props) {
   const classes = useStyles();
   return (
-    <Card className={classes.bandDetailContainer}>
+    <Card role="listbox" className={classes.bandDetailContainer}>
       <CardContent>
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h5" color="textSecondary">

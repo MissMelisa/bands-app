@@ -25,10 +25,11 @@ type Props = {
 export default function DetailList({ items, title: listName }: Props) {
   const classes = useStyles();
   return (
-    <Box>
+    <Box role="listbox" title={listName}>
       <Typography variant="h4">{listName}</Typography>
       {items.map((textItem) => (
         <Paper
+          role="listitem"
           key={textItem}
           elevation={3}
           className={classes.detailsContainer}
